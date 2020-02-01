@@ -1,0 +1,12 @@
+on:
+  issue_comment:
+    types: [created, deleted]
+
+jobs:
+  sbt_job:
+    runs-on: ubuntu-latest
+    name: sbt job
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2 # does clean option remove file?
+    - run: sbt run
