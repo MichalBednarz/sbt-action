@@ -1,3 +1,7 @@
+import scala.io.Source
+
 object Main extends App {
-	println("Hello world")
+  val content = getClass.getResourceAsStream("test.txt")
+  val lines = Source.fromInputStream(content).getLines()
+  lines.foreach(println(_))
 }
