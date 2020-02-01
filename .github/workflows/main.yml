@@ -11,5 +11,6 @@ jobs:
       uses: actions/checkout@v2 # does clean option remove file?
     - name: Create temporary file with review comments
       uses: MichalBednarz/sample-action@master
-    - run: cat ReviewComments.json
-    - run: sbt run
+    - name: Save snapshot in storage
+      uses: MichalBednarz/sample-action@save-storage
+#    - run: sbt generateSnapshot
