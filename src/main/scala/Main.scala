@@ -1,7 +1,12 @@
 import scala.io.Source
-
+import java.nio.file.Paths
 object Main extends App {
-  val content = getClass.getResourceAsStream("review-comments.json")
-  val lines = Source.fromInputStream(content).getLines()
-  lines.foreach(println(_))
+  val source =
+    Source.fromFile(Paths.get("ReviewComments.json").toAbsolutePath.toFile)
+  try {
+    val lines = source.getLines()
+    lines.foreach(println(_))
+  } finally {
+    source.close
+  }
 }
