@@ -22,7 +22,7 @@ jobs:
     - name: asdf
       run: |
         cd /home/runner/work/sbt-action/sbt-action
-        tree
+        ls
     - name: Save snapshot to storage repo
       uses: MichalBednarz/sample-action@save-storage
       with:
