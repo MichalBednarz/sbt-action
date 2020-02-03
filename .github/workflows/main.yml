@@ -13,8 +13,8 @@ jobs:
       uses: MichalBednarz/sample-action@master 
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-    #- name: Generate snapshot via sbt plugin
-      #run: sbt generateSnapshot
+    - name: Generate snapshot
+      run: sbt generateSnapshot
     - name: Save snapshot to storage repo
       uses: MichalBednarz/sample-action@save-storage
       with:
