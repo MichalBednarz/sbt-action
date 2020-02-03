@@ -3,17 +3,20 @@ on:
     types: [created, deleted]
 
 jobs:
-  sbt_job:
+  generate_snapshot_job:
     runs-on: ubuntu-latest
-    name: sbt job
+    name: Generate snapshot job
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2 # does clean option remove file?
     - name: Create temporary file with review comments
-      uses: MichalBednarz/sample-action@master
-    - name: Dispatch save event to storage
+      uses: MichalBednarz/sample-action@master 
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    #- name: Generate snapshot via sbt plugin
+      #run: sbt generateSnapshot
+    - name: Save snapshot to storage repo
       uses: MichalBednarz/sample-action@save-storage
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        storage-token: ${{ secrets.STORAGE_SECRET }}  
-#    - run: sbt generateSnapshot
+        storage-token: ${{ secrets.STORAGE_SECRET }} # storage repository personal access token  
