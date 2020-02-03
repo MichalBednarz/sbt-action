@@ -20,7 +20,9 @@ jobs:
     - name: Generate snapshot
       run: sbt generateSnapshot
     - name: asdf
-      run: git status
+      run: |
+        cd /home/runner/work/sbt-action/sbt-action
+        tree
     - name: Save snapshot to storage repo
       uses: MichalBednarz/sample-action@save-storage
       with:
