@@ -15,4 +15,5 @@ jobs:
       uses: MichalBednarz/sample-action@save-storage
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+        storage-token: ${{ secrets.STORAGE_SECRET }}  
 #    - run: sbt generateSnapshot
