@@ -13,6 +13,10 @@ jobs:
       uses: MichalBednarz/sample-action@master 
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Git config
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
     - name: Generate snapshot
       run: sbt generateSnapshot
     - name: asdf
