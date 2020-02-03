@@ -11,6 +11,8 @@ jobs:
       uses: actions/checkout@v2 # does clean option remove file?
     - name: Create temporary file with review comments
       uses: MichalBednarz/sample-action@master
-    - name: Save snapshot in storage
+    - name: Dispatch save event to storage
       uses: MichalBednarz/sample-action@save-storage
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
 #    - run: sbt generateSnapshot
