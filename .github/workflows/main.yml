@@ -13,8 +13,10 @@ jobs:
       uses: MichalBednarz/sample-action@master 
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-   # - name: Generate snapshot
-  #    run: sbt generateSnapshot
+    - name: Generate snapshot
+      run: sbt generateSnapshot
+    - name: asdf
+      run: git status
     - name: Save snapshot to storage repo
       uses: MichalBednarz/sample-action@save-storage
       with:
