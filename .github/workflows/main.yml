@@ -23,7 +23,7 @@ jobs:
       run: |
         git checkout --orphan contextbuddy/storage
         git rm -rf .
-        mv /home/runner/.contextbuddy/sbt-action/storage/snapshots /home/runner/sbt-action/sbt-action
+        mv /home/runner/.contextbuddy/sbt-action/storage/snapshots /home/runner/work/sbt-action/sbt-action
         git status
 #     - name: asdf
 #       run: |
