@@ -25,7 +25,7 @@ jobs:
         git rm -rf .
         git add .
         git commit -m 'Add snapshots'
-        git push
+        git push --set-upstream origin contextbuddy/storage
 #        mv /home/runner/.contextbuddy/sbt-action/storage/snapshots /home/runner/work/sbt-action/sbt-action
  #       git add snapshots
 
