@@ -23,9 +23,9 @@ jobs:
       run: |
         git checkout --orphan contextbuddy/storage
         git rm -rf .
-        mv /home/runner/.contextbuddy/sbt-action/storage/snapshots /home/runner/work/sbt-action/sbt-action
-        git add snapshots
-        git commit -m 'Add snapshots'
+        mv /home/runner/.contextbuddy $GITHUB_WORKSPACE
+        git add .contextbuddy
+        git commit -m 'Add storage'
         git push --set-upstream origin contextbuddy/storage -ff
 
  #       git add snapshots
