@@ -17,16 +17,18 @@ jobs:
       run: |
         git config --global user.email "context@buddy.com"
         git config --global user.name "ContextBuddy"
-    - name: Generate snapshot
-      run: sbt generateSnapshot
+#     - name: Generate snapshot
+#       run: sbt generateSnapshot
     - name: Save snapshot in storage branch
       run: |
         git checkout --orphan contextbuddy/storage
         git rm -rf .
-        mv /home/runner/.contextbuddy/sbt-action/storage/snapshots /home/runner/work/sbt-action/sbt-action
-        git add snapshots
+        git add .
         git commit -m 'Add snapshots'
         git push
+#        mv /home/runner/.contextbuddy/sbt-action/storage/snapshots /home/runner/work/sbt-action/sbt-action
+ #       git add snapshots
+
 #     - name: asdf
 #       run: |
         
