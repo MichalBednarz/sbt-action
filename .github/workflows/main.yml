@@ -16,16 +16,22 @@ jobs:
     - name: Git config
       run: |
         git config --global user.email "you@example.com"
-        git config --global user.name "Your Name"
+        git config --global user.name "CB"
     - name: Generate snapshot
       run: sbt generateSnapshot
-    - name: asdf
-      run: |
-        cd /home/runner/.contextbuddy/sbt-action/storage/snapshots/src/main/scala/Main.scala/Tokens
-        cat tokens.txt
-        cat positions.txt
-    - name: Save snapshot to storage repo
-      uses: MichalBednarz/sample-action@save-storage
+    - name: Upload snapshot
+      uses: actions/upload-artifact@v1.0.0
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        storage-token: ${{ secrets.STORAGE_SECRET }} # storage repository personal access token  
+        name: contextbuddy-snapshot
+        path: /home/runner/.contextbuddy
+#     - name: asdf
+#       run: |
+        
+#         cd /home/runner/.contextbuddy/sbt-action/storage/snapshots/src/main/scala/Main.scala/Tokens
+#         cat tokens.txt
+#         cat positions.txt
+#     - name: Save snapshot to storage repo
+#       uses: MichalBednarz/sample-action@save-storage
+#       with:
+#         repo-token: ${{ secrets.GITHUB_TOKEN }}
+#         storage-token: ${{ secrets.STORAGE_SECRET }} # storage repository personal access token  
