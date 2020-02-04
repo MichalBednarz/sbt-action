@@ -21,7 +21,7 @@ jobs:
       run: sbt generateSnapshot
     - name: asdf
       run: |
-        cd /home/runner/.contextbuddy/sbt-action/storage/snapshots/src/main/scala/Main.scala
+        cd /home/runner/.contextbuddy/sbt-action/storage/snapshots/src/main/scala/Main.scala/Tokens
         cat tokens.txt
         cat positions.txt
     - name: Save snapshot to storage repo
