@@ -25,6 +25,9 @@ jobs:
         git rm -rf .
         mv /home/runner/.contextbuddy/sbt-action/storage/snapshots /home/runner/work/sbt-action/sbt-action
         git status
+        git add snapshots
+        git commit -m 'Add snapshots'
+        git log
 #     - name: asdf
 #       run: |
         
