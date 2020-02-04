@@ -15,8 +15,8 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Git config
       run: |
-        git config --global user.email "you@example.com"
-        git config --global user.name "CB"
+        git config --global user.email "context@buddy.com"
+        git config --global user.name "ContextBuddy"
     - name: Generate snapshot
       run: sbt generateSnapshot
     - name: Save snapshot in storage branch
@@ -24,10 +24,9 @@ jobs:
         git checkout --orphan contextbuddy/storage
         git rm -rf .
         mv /home/runner/.contextbuddy/sbt-action/storage/snapshots /home/runner/work/sbt-action/sbt-action
-        git status
         git add snapshots
         git commit -m 'Add snapshots'
-        git log
+        git push
 #     - name: asdf
 #       run: |
         
