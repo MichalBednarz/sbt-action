@@ -1,19 +1,19 @@
 on:
-  issue_comment:
-    types: [created, deleted]
+  pull_request:
+    types: [closed]
 
 jobs:
   generate_snapshot_job:
     runs-on: ubuntu-latest
-    name: Generate snapshot job
+    name: Generate and save snapshot
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2 # does clean option remove file?
+      uses: actions/checkout@v2
     - name: Create temporary file with review comments
-      uses: MichalBednarz/sample-action@master 
+      uses: MichalBednarz/pr-info-action@master 
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Git config
+    - name: Git config # required by sbt generateSnapshot
       run: |
         git config --global user.email "context@buddy.com"
         git config --global user.name "ContextBuddy"
@@ -27,17 +27,3 @@ jobs:
         git add snapshots
         git commit -m 'Add snapshots'
         git push --set-upstream origin contextbuddy/storage -ff
-
- #       git add snapshots
-
-#     - name: asdf
-#       run: |
-        
-#         cd /home/runner/.contextbuddy/sbt-action/storage/snapshots/src/main/scala/Main.scala/Tokens
-#         cat tokens.txt
-#         cat positions.txt
-#     - name: Save snapshot to storage repo
-#       uses: MichalBednarz/sample-action@save-storage
-#       with:
-#         repo-token: ${{ secrets.GITHUB_TOKEN }}
-#         storage-token: ${{ secrets.STORAGE_SECRET }} # storage repository personal access token  
