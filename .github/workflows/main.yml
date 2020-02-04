@@ -23,8 +23,8 @@ jobs:
       run: |
         git checkout --orphan contextbuddy/storage
         git rm -rf .
-        mv /home/runner/.contextbuddy $GITHUB_WORKSPACE
-        git add .contextbuddy
+        mv /home/runner/.contextbuddy/$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')/storage $GITHUB_WORKSPACE
+        git add storage
         git commit -m 'Add storage'
         git push --set-upstream origin contextbuddy/storage -ff
 
