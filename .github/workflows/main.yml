@@ -13,17 +13,17 @@ jobs:
       uses: MichalBednarz/pr-info-action@master 
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Git config # required by sbt generateSnapshot
-      run: |
-        git config --global user.email "context@buddy.com"
-        git config --global user.name "ContextBuddy"
-    - name: Generate snapshot
-      run: sbt generateSnapshot
-    - name: Save snapshot in storage branch
-      run: |
-        git checkout --orphan contextbuddy/storage
-        git rm -rf .
-        mv /home/runner/.contextbuddy/$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')/storage/snapshots $GITHUB_WORKSPACE
-        git add snapshots
-        git commit -m 'Add snapshots'
-        git push --set-upstream origin contextbuddy/storage -ff
+#     - name: Git config # required by sbt generateSnapshot
+#       run: |
+#         git config --global user.email "context@buddy.com"
+#         git config --global user.name "ContextBuddy"
+#     - name: Generate snapshot
+#       run: sbt generateSnapshot
+#     - name: Save snapshot in storage branch
+#       run: |
+#         git checkout --orphan contextbuddy/storage
+#         git rm -rf .
+#         mv /home/runner/.contextbuddy/$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')/storage/snapshots $GITHUB_WORKSPACE
+#         git add snapshots
+#         git commit -m 'Add snapshots'
+#         git push --set-upstream origin contextbuddy/storage -ff
