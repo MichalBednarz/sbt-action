@@ -24,6 +24,11 @@ jobs:
       with:
         name: contextbuddy-snapshot
         path: /home/runner/.contextbuddy
+    - name: Download snapshot
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: contextbuddy-snapshot
+        path: ~/.contextbuddy
 #     - name: asdf
 #       run: |
         
