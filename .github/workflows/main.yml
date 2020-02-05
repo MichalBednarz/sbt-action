@@ -11,6 +11,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Create temporary file with review comments
       uses: MichalBednarz/sample-action@master 
+    - name: Test temp file
+      run: |
+         git status
+         cat ReviewComments.json
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Git config # required by sbt generateSnapshot
