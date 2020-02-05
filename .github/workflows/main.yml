@@ -10,7 +10,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Create temporary file with review comments
-      uses: MichalBednarz/pr-info-action@master 
+      uses: MichalBednarz/contextbuddy@gh-actions
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Test temp file
