@@ -1,6 +1,6 @@
 on:
-   issue_comment:
-     types: [created, deleted]
+   pull_request:
+     types: [closed]
 
 jobs:
   sbt_cache_job:
