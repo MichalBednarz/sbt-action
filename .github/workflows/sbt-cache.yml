@@ -9,12 +9,12 @@ jobs:
     steps:
        - name: Checkout repository
          uses: actions/checkout@v2         
-       - name: Run sbt
-         run: sbt
        - name: Git config # required by sbt generateSnapshot
          run: |
           git config --global user.email "context@buddy.com"
           git config --global user.name "ContextBuddy"
+       - name: Run sbt
+         run: sbt
        - name: Cache sbt
          run: ls -a /home/runner/
 #     - name: Cache sbt
