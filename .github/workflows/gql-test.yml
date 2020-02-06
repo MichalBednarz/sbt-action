@@ -1,5 +1,5 @@
 on:
-   issue_comments:
+   issue_comment:
      types: [created, deleted]
 
 jobs:
