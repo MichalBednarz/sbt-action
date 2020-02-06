@@ -13,20 +13,15 @@ jobs:
          run: |
           git config --global user.email "context@buddy.com"
           git config --global user.name "ContextBuddy"
+       - name: Cache SBT
+         uses: actions/cache@v1.1.0
+         with:
+           path: ~/.sbt
+           key: sbt-${{ matrix.os }}-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/**/*.scala') }}
+       - name: Cache SBT ivy cache
+         uses: actions/cache@v1.1.0
+         with:
+           path: ~/.ivy2/cache
+           key: sbt-ivy-${{ matrix.os }}-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/**/*.scala') }}
        - name: Run sbt
          run: sbt generateSnapshot
-       - name: Cache sbt
-         run: |
-           ls -a /home/runner/
-           ls -a /home/runner/.sbt
-           ls -a /home/runner/.ivy2
-           ls -a .
-#     - name: Cache sbt
-#       uses: actions/cache@v1
-#       with:
-#         path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-#         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-#         restore-keys: |
-#           ${{ runner.os }}-build-${{ env.cache-name }}-
-#           ${{ runner.os }}-build-
-#           ${{ runner.os }}-
