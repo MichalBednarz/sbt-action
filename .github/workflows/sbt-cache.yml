@@ -14,7 +14,7 @@ jobs:
           git config --global user.email "context@buddy.com"
           git config --global user.name "ContextBuddy"
        - name: Run sbt
-         run: sbt
+         run: sbt generateSnapshot
        - name: Cache sbt
          run: ls -a /home/runner/
 #     - name: Cache sbt
