@@ -18,10 +18,9 @@ jobs:
        - name: Cache sbt
          run: |
            ls -a /home/runner/
-           cd .ivy2
-           ls -a
-           cd ../.sbt
-           ls -a
+           ls -a /home/runner/.sbt
+           ls -a /home/runner/.ivy2
+           ls -a .
 #     - name: Cache sbt
 #       uses: actions/cache@v1
 #       with:
