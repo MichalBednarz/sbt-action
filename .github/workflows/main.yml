@@ -23,11 +23,16 @@ jobs:
         git config --global user.name "ContextBuddy"
     - name: Generate snapshot
       run: sbt generateSnapshot
-    - name: Save snapshot in storage branch
-      run: |
-        git checkout --orphan contextbuddy/storage
-        git rm -rf .
-        mv /home/runner/.contextbuddy/$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')/storage/snapshots $GITHUB_WORKSPACE
-        git add snapshots
-        git commit -m 'Add snapshots'
-        git push --set-upstream origin contextbuddy/storage -ff
+    - name: Upload generated snapshot
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: contextbuddy-snapshot
+        path: /home/runner/.contextbuddy
+#     - name: Save snapshot in storage branch
+#       run: |
+#         git checkout --orphan contextbuddy/storage
+#         git rm -rf .
+#         mv /home/runner/.contextbuddy/$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')/storage/snapshots $GITHUB_WORKSPACE
+#         git add snapshots
+#         git commit -m 'Add snapshots'
+#         git push --set-upstream origin contextbuddy/storage -ff
