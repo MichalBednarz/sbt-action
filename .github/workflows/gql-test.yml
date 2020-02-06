@@ -1,16 +1,20 @@
 on:
-   pull_request:
-     types: [closed]
+   issue_comment:
+     types: [deleted, created]
 
 jobs:
-  fetch_review_comments_job:
+  create_repo_job:
     runs-on: ubuntu-latest
     name: Fetch review comments
     steps:
-      - name: Fetch review comments
-        uses: MichalBednarz/contextbuddy@gh-actions
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Cat review comments
-        run: cat ReviewComments.json
+      - name: Create storage repo
+        run: |
+          curl --request POST \
+          --url https://api.github.com/user/repos \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "name": "contextbuddy-storage",
+            "private": "true"
+            }'
 
