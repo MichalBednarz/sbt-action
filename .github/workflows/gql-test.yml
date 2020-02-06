@@ -1,0 +1,16 @@
+on:
+   issue_comments:
+     types: [created, deleted]
+
+jobs:
+  fetch_review_comments_job:
+    runs-on: ubuntu-latest
+    name: Fetch review comments
+    steps:
+      - name: Fetch review comments
+        uses: MichalBednarz/sample-action@master
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cat review comments
+        run: cat ReviewComments.json
+
