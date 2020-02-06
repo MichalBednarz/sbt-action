@@ -1,18 +1,24 @@
 on:
-   pull_request:
-     types: [closed]
+   issue_comment:
+     types: [created, deleted]
 
 jobs:
   sbt_cache_job:
     runs-on: ubuntu-latest
     name: Cache sbt
     steps:
-    - name: Cache sbt
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+       - name: Checkout repository
+         uses: actions/checkout@v2         
+       - name: Run sbt
+         run: sbt
+       - name: Cache sbt
+         run: ls -a /home/runner/
+#     - name: Cache sbt
+#       uses: actions/cache@v1
+#       with:
+#         path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+#         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+#         restore-keys: |
+#           ${{ runner.os }}-build-${{ env.cache-name }}-
+#           ${{ runner.os }}-build-
+#           ${{ runner.os }}-
