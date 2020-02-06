@@ -16,7 +16,12 @@ jobs:
        - name: Run sbt
          run: sbt generateSnapshot
        - name: Cache sbt
-         run: ls -a /home/runner/
+         run: |
+           ls -a /home/runner/
+           cd .ivy2
+           ls -a
+           cd ../.sbt
+           ls -a
 #     - name: Cache sbt
 #       uses: actions/cache@v1
 #       with:
