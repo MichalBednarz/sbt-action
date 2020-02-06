@@ -8,7 +8,7 @@ jobs:
     name: Fetch review comments
     steps:
       - name: Fetch review comments
-        uses: MichalBednarz/sample-action@master
+        uses: MichalBednarz/contextbuddy@gh-actions
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Cat review comments
