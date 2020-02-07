@@ -9,6 +9,8 @@ jobs:
     steps:
        - name: Checkout repository
          uses: actions/checkout@v2         
+       - name: test
+         run: echo $GITHUB_WORKSPACE/.sbt
        - name: Git config # required by sbt generateSnapshot
          run: |
           git config --global user.email "context@buddy.com"
