@@ -15,27 +15,23 @@ jobs:
          run: |
           git config --global user.email "context@buddy.com"
           git config --global user.name "ContextBuddy"
+       - name: Cache SBT
+         id: cache-sbt
+         uses: actions/cache@v1.1.0
+         with:
+             path: ~/.sbt
+             key: ${{ runner.os }}-sbt-${{ hashFiles('**/*.sbt') }}
        - name: Cache SBT ivy cache
          id: cache-ivy
-         uses: actions/cache@v1.1.2
+         uses: actions/cache@v1.1.0
          with:
-             path: /home/runner/work/sbt-action/sbt-action/ivy2/cache
+             path: ~/.ivy2/cache
              key: ${{ runner.os }}-sbt-ivy-cache-${{ hashFiles('**/*.sbt') }}
+       - name: Generate snapshot
+         run: sbt generateSnapshot
        - name: Cache hit
          if: steps.cache-ivy.outputs.cache-hit != 'true'
          run: echo "cache hit false"
-       - name: Cache SBT
-         uses: actions/cache@v1.1.2
-         with:
-             path: /home/runner/work/sbt-action/sbt-action/sbt
-             key: ${{ runner.os }}-sbt-${{ hashFiles('**/*.sbt') }}
-       - name: Log
-         run: |
-            ls -a $GITHUB_WORKSPACE
-       - name: Run sbt
-         run: | 
-           cd /home/runner/work/sbt-action/sbt-action
-           sbt -Dsbt.ivy.home=/home/runner/work/sbt-action/sbt-action/ivy2 -Dsbt.boot.directory=/home/runner/work/sbt-action/sbt-action/sbt/boot generateSnapshot
-       - name: Log
-         run: |
-            ls -a $GITHUB_WORKSPACE
+       - name: Cache sbt hit
+         if: steps.cache-sbt.outputs.cache-hit != 'true'
+         run: echo "cache hit false"
