@@ -14,14 +14,22 @@ jobs:
           git config --global user.email "context@buddy.com"
           git config --global user.name "ContextBuddy"
        - name: Cache SBT
-         uses: actions/cache@v1.1.0
+         uses: actions/cache@v1.1.2
          with:
            path: /home/runner/.sbt
            key: sbt-${{ matrix.os }}-${{ hashFiles('**/*.sbt') }}
        - name: Cache SBT ivy cache
-         uses: actions/cache@v1.1.0
+         uses: actions/cache@v1.1.2
          with:
            path: /home/runner/.ivy2/cache
            key: sbt-ivy-${{ matrix.os }}-${{ hashFiles('**/*.sbt') }}
+       - name: Log
+         run: |
+            ls /home/runner/.ivy2/cache
+            ls /home/runner/.sbt
        - name: Run sbt
          run: sbt generateSnapshot
+       - name: Log
+         run: |
+            ls /home/runner/.ivy2/cache
+            ls /home/runner/.sbt
