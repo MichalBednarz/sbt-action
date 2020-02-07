@@ -18,20 +18,20 @@ jobs:
        - name: Cache SBT ivy cache
          uses: actions/cache@v1
          with:
-             path: $GITHUB_WORKSPACE/.ivy2/cache
+             path: /home/runner/work/sbt-action/sbt-action/.ivy2/cache
              key: ${{ runner.os }}-sbt-ivy-cache-${{ hashFiles('**/*.sbt') }}
        - name: Cache SBT
          uses: actions/cache@v1
          with:
-             path: $GITHUB_WORKSPACE/.sbt
+             path: /home/runner/work/sbt-action/sbt-action/.sbt
              key: ${{ runner.os }}-sbt-${{ hashFiles('**/*.sbt') }}
        - name: Log
          run: |
             ls -a $GITHUB_WORKSPACE
        - name: Run sbt
          run: | 
-           cd $GITHUB_WORKSPACE
-           sbt -Dsbt.ivy.home=$GITHUB_WORKSPACE/.ivy2 -Dsbt.boot.directory=$GITHUB_WORKSPACE/.sbt/boot generateSnapshot
+           cd /home/runner/work/sbt-action/sbt-action
+           sbt -Dsbt.ivy.home=/home/runner/work/sbt-action/sbt-action/.ivy2 -Dsbt.boot.directory=/home/runner/work/sbt-action/sbt-action/.sbt/boot generateSnapshot
        - name: Log
          run: |
             ls -a $GITHUB_WORKSPACE
