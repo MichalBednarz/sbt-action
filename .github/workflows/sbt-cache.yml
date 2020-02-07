@@ -25,8 +25,7 @@ jobs:
            key: sbt-ivy-${{ matrix.os }}-${{ hashFiles('**/*.sbt') }}
        - name: Log
          run: |
-            ls /home/runner/.ivy2/cache
-            ls /home/runner/.sbt
+            ls -a /home/runner/
        - name: Run sbt
          run: sbt generateSnapshot
        - name: Log
