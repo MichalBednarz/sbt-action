@@ -19,7 +19,7 @@ jobs:
          id: cache-ivy
          uses: actions/cache@v1.1.2
          with:
-             path: /home/runner/work/sbt-action/sbt-action/.ivy2/cache
+             path: /home/runner/work/sbt-action/sbt-action/ivy2/cache
              key: ${{ runner.os }}-sbt-ivy-cache-${{ hashFiles('**/*.sbt') }}
        - name: Cache hit
          if: steps.cache-ivy.outputs.cache-hit != 'true'
@@ -27,7 +27,7 @@ jobs:
        - name: Cache SBT
          uses: actions/cache@v1.1.2
          with:
-             path: /home/runner/work/sbt-action/sbt-action/.sbt
+             path: /home/runner/work/sbt-action/sbt-action/sbt
              key: ${{ runner.os }}-sbt-${{ hashFiles('**/*.sbt') }}
        - name: Log
          run: |
@@ -35,7 +35,7 @@ jobs:
        - name: Run sbt
          run: | 
            cd /home/runner/work/sbt-action/sbt-action
-           sbt -Dsbt.ivy.home=/home/runner/work/sbt-action/sbt-action/.ivy2 -Dsbt.boot.directory=/home/runner/work/sbt-action/sbt-action/.sbt/boot generateSnapshot
+           sbt -Dsbt.ivy.home=/home/runner/work/sbt-action/sbt-action/ivy2 -Dsbt.boot.directory=/home/runner/work/sbt-action/sbt-action/sbt/boot generateSnapshot
        - name: Log
          run: |
             ls -a $GITHUB_WORKSPACE
