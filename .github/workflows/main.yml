@@ -1,6 +1,6 @@
 on:
-   pull_request:
-     types: [closed]
+   issue_comment:
+     types: [created, deleted]
 
 jobs:
   generate_snapshot_job:
