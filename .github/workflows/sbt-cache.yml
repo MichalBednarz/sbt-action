@@ -13,16 +13,16 @@ jobs:
          run: |
           git config --global user.email "context@buddy.com"
           git config --global user.name "ContextBuddy"
-       - name: Cache SBT
-         uses: actions/cache@v1.1.2
-         with:
-           path: /home/runner/.sbt
-           key: sbt-${{ matrix.os }}-${{ hashFiles('**/*.sbt') }}
        - name: Cache SBT ivy cache
-         uses: actions/cache@v1.1.2
+         uses: actions/cache@v1
          with:
-           path: /home/runner/.ivy2/cache
-           key: sbt-ivy-${{ matrix.os }}-${{ hashFiles('**/*.sbt') }}
+             path: ~/.ivy2/cache
+             key: ${{ runner.os }}-sbt-ivy-cache-${{ hashFiles('**/*.sbt') }}
+       - name: Cache SBT
+         uses: actions/cache@v1
+         with:
+             path: ~/.sbt
+             key: ${{ runner.os }}-sbt-${{ hashFiles('**/*.sbt') }}
        - name: Log
          run: |
             ls -a /home/runner/
