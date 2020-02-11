@@ -1,6 +1,9 @@
+name: ContextBuddy CI
+
 on:
-   pull_request:
-     types: [closed]
+ push:
+  branches: 
+   - master
 
 jobs:
   generate_snapshot_job:
@@ -13,15 +16,20 @@ jobs:
       uses: MichalBednarz/contextbuddy@gh-actions
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Cache SBT
+      uses: actions/cache@v1.1.0
+      with:
+        path: ~/.sbt
+        key: sbt-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
+    - name: Cache SBT ivy cache
+      uses: actions/cache@v1.1.0
+      with:
+        path: ~/.ivy2/cache
+        key: sbt-ivy-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
     - name: Git config # required by sbt generateSnapshot
       run: |
         git config --global user.email "context@buddy.com"
         git config --global user.name "ContextBuddy"
-    - name: Download previous snapshot
-      uses: actions/download-artifact@v1.0.0
-      with:
-         name: contextbuddy-snapshot
-         path: /home/runner/.contextbuddy
     - name: Generate snapshot
       run: sbt generateSnapshot
     - name: Upload generated snapshot
