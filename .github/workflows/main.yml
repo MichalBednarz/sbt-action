@@ -14,10 +14,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Create temporary file with review comments
-      uses: MichalBednarz/contextbuddy@gh-actions
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Cache SBT
       uses: actions/cache@v1.1.0
       with:
@@ -28,6 +24,10 @@ jobs:
       with:
         path: ~/.ivy2/cache
         key: sbt-ivy-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
+    - name: Create temporary file with review comments
+      uses: MichalBednarz/contextbuddy@gh-actions
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Git config # required by sbt generateSnapshot
       run: |
         git config --global user.email "context@buddy.com"
