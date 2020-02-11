@@ -23,6 +23,10 @@ jobs:
       with:
         path: ~/.ivy2/cache
         key: sbt-ivy-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
+    - name: Git config # required by sbt generateSnapshot
+      run: |
+          git config --global user.email "context@buddy.com"
+          git config --global user.name "ContextBuddy"
     - name: Generate snapshot
       run: sbt generateSnapshot
 
