@@ -1,8 +1,11 @@
 name: ContextBuddy CI
 
 on:
- pull_request:
-  types: [closed]
+ push:
+  branches: 
+   - master
+#  pull_request:
+#   types: [closed]
 
 jobs:
   generate_snapshot_job:
@@ -22,7 +25,7 @@ jobs:
         path: ~/.ivy2/cache
         key: sbt-ivy-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
     - name: Create temporary file with review comments
-      uses: MichalBednarz/contextbuddy@gh-actions
+      uses: MichalBednarz/sample-action@master
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Git config # required by sbt generateSnapshot
