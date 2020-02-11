@@ -1,70 +1,29 @@
-name: CI
-# on:
-#   push:
-#     branches:
-#       - master
-#   pull_request:
+name: SBT Cache
+
 on:
  push:
   branches: 
    - master
+
 jobs:
-  build:
+  sbt_cache:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: Cache SBT
-      uses: actions/cache@v1.1.0
+      uses: actions/cache@v1.1.2
       with:
         path: ~/.sbt
         key: sbt-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
     - name: Cache SBT ivy cache
-      uses: actions/cache@v1.1.0
+      uses: actions/cache@v1.1.2
       with:
         path: ~/.ivy2/cache
         key: sbt-ivy-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
     - name: Git config # required by sbt generateSnapshot
       run: |
-          git config --global user.email "context@buddy.com"
-          git config --global user.name "ContextBuddy"
-    - name: Generate snapshot
-      run: sbt generateSnapshot
-
-# on:
-#    pull_request:
-#      branches: 
-#         - master
-
-# jobs:
-#   sbt_cache_job:
-#     runs-on: ubuntu-latest
-#     name: Cache sbt
-#     steps:
-#        - name: Checkout repository
-#          uses: actions/checkout@v2         
-#        - name: test
-#          run: echo $GITHUB_WORKSPACE/.sbt
-#        - name: Git config # required by sbt generateSnapshot
-#          run: |
-#           git config --global user.email "context@buddy.com"
-#           git config --global user.name "ContextBuddy"
-#        - name: Cache SBT
-#          id: cache-sbt
-#          uses: actions/cache@v1.1.0
-#          with:
-#              path: ~/.sbt
-#              key: ${{ runner.os }}-sbt-${{ hashFiles('**/*.sbt') }}
-#        - name: Cache SBT ivy cache
-#          id: cache-ivy
-#          uses: actions/cache@v1.1.0
-#          with:
-#              path: ~/.ivy2/cache
-#              key: ${{ runner.os }}-sbt-ivy-cache-${{ hashFiles('**/*.sbt') }}
-#        - name: Generate snapshot
-#          run: sbt generateSnapshot
-#        - name: Cache hit
-#          if: steps.cache-ivy.outputs.cache-hit != 'true'
-#          run: echo "cache hit false"
-#        - name: Cache sbt hit
-#          if: steps.cache-sbt.outputs.cache-hit != 'true'
-#          run: echo "cache hit false"
+        git config --global user.email "context@buddy.com"
+        git config --global user.name "ContextBuddy"
+    - name: Sbt update
+      run: sbt update
