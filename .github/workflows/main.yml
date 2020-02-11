@@ -2,8 +2,6 @@ name: ContextBuddy CI
 
 on:
  push:
-  branches: 
-   - master
  pull_request:
   types: [closed]
 
