@@ -12,6 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Generate and save snapshot
     steps:
+    - name: Checkout storage repository
+      uses: actions/checkout@v2
+      with: 
+       repository: MichalBednarz/contextbuddy-storage
+       token: ${{ secrets.STORAGE_SECRET }}
+    - name: Copy storage
+      run: cp sbt-action ~/.
+    - name: Check
+      run: ls -a ~/.
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Cache SBT
