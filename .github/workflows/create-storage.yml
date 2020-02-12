@@ -1,8 +1,7 @@
 name: Create Storage
 
 on:
-  issue_comment:
-    types: [created, deleted]
+
 
 jobs:
   create_storage_job:
