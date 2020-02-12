@@ -13,4 +13,4 @@ jobs:
     - name: Create storage
       uses: MichalBednarz/storage-action@master
       with:
-        user-key: ${{ secrets.GITHUB_TOKEN }}
+        user-key: ${{ secrets.STORAGE_SECRET }}
