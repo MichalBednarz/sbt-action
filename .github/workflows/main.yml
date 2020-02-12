@@ -48,7 +48,7 @@ jobs:
        token: ${{ secrets.STORAGE_SECRET }}
     - name: Save snapshot to storage
       run: | 
-       cp -r ~/.contextbuddy ./
+       cp -rf ~/.contextbuddy /
        git add .
        git commit -m 'Update snapshot'
        git push -ff
