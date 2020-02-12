@@ -18,7 +18,7 @@ jobs:
        repository: MichalBednarz/contextbuddy-storage
        token: ${{ secrets.STORAGE_SECRET }}
     - name: Copy storage
-      run: cp sbt-action ~/.
+      run: cp -r sbt-action ~/.
     - name: Check
       run: ls -a ~/.
     - name: Checkout repository
