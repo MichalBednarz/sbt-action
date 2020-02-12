@@ -1,6 +1,6 @@
-on:
-   issue_comment:
-     types: [deleted, created]
+# on:
+#    issue_comment:
+#      types: [deleted, created]
 
 jobs:
   create_repo_job:
