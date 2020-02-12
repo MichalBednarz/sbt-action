@@ -18,9 +18,7 @@ jobs:
        repository: MichalBednarz/contextbuddy-storage
        token: ${{ secrets.STORAGE_SECRET }}
     - name: Copy storage
-      run: cp -r ${{ github.repository }}/.contextbuddy ~/.
-    - name: Check
-      run: ls -a ~/.
+      run: cp -r sbt-action/.contextbuddy ~/.
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Cache SBT
@@ -43,8 +41,10 @@ jobs:
         git config --global user.name "ContextBuddy"
     - name: Generate snapshot
       run: sbt generateSnapshot
-    - name: Upload generated snapshot
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        name: contextbuddy-snapshot
-        path: /home/runner/.contextbuddy
+    - name: Checkout storage repository
+      uses: actions/checkout@v2
+      with: 
+       repository: MichalBednarz/contextbuddy-storage
+       token: ${{ secrets.STORAGE_SECRET }}
+    - name: Save snapshot to storage
+      run: cp -r ~/.contextbuddy sbt-action/
