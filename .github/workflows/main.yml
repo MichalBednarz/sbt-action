@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Generate and save snapshot
     steps:
+    - name: Set env
+      run: echo ::set-env name=OWNER::$(echo "{github.repository/\/*/}"))
+    - name: Test
+      run: echo $OWNER
     - name: Create storage if not present
       uses: MichalBednarz/storage-action@master
       with:
@@ -20,7 +24,7 @@ jobs:
     - name: Checkout storage repository
       uses: actions/checkout@v2
       with: 
-       repository: ${{ $(echo "{github.repository/\/*/}") }}/contextbuddy-storage
+       repository: ${{ env.OWNER }}/contextbuddy-storage
        token: ${{ secrets.STORAGE_SECRET }}
 #     - name: Copy storage
 #       run: cp -r sbt-action/.contextbuddy ~/.
