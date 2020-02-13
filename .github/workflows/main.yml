@@ -22,6 +22,8 @@ jobs:
       uses: MichalBednarz/storage-action@master
       with:
        user-key: ${{ secrets.STORAGE_SECRET }} 
+       owner: ${{ env.OWNER }}
+       repo: ${{ env.REPO }}
     - name: Checkout storage repository
       uses: actions/checkout@v2
       with: 
