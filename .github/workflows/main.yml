@@ -63,5 +63,4 @@ jobs:
        git push -ff
     - name: test
       run: |
-       ls
-       ls sbt-action/sbt-action
+       ls ~/work/sbt-action/sbt-action/
