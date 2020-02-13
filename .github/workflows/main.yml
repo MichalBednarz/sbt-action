@@ -31,7 +31,10 @@ jobs:
        token: ${{ secrets.STORAGE_SECRET }}
     - name: Copy storage
       if: steps.create-storage.outputs.repo-existed == 'true'
-      run: cp -r ${{ env.REPO }}/ ~/.contextbuddy/${{ env.REPO }}/
+      run: | 
+       mkdir ~/.contextbuddy
+       mkdir ~/.contextbuddy/${{ env.REPO }}
+       cp -r ${{ env.REPO }} ~/.contextbuddy/${{ env.REPO }}
     - name: test
       run: ls ~/.contextbuddy/
     - name: Checkout repository
