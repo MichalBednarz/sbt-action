@@ -28,10 +28,6 @@ jobs:
     - name: Copy storage
       if: steps.create-storage.outputs.repo-existed == 'true'
       run: mkdir -p ~/.contextbuddy/ && cp -r ${{ env.REPO }} ~/.contextbuddy/
-    - name: test
-      run: | 
-       cat ~/.contextbuddy/sbt-action/.current-storage
-       ls ~/.contextbuddy/sbt-action/sbt-action
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Cache SBT
