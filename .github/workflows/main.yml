@@ -17,7 +17,7 @@ jobs:
       run: | 
        echo ::set-env name=OWNER::$(echo "${GITHUB_REPOSITORY/\/*/}")
        echo ::set-env name=REPO::$(echo "${GITHUB_REPOSITORY/*\//}") # can env be accessed within js action?
-    - name: Create storage if not present
+    - name: Create storage if not present # if present REPO_EXISTED env variable will be set to true
       uses: MichalBednarz/storage-action@master
       with:
        user-key: ${{ secrets.STORAGE_SECRET }} 
@@ -27,6 +27,7 @@ jobs:
        repository: ${{ env.OWNER }}/contextbuddy-storage
        token: ${{ secrets.STORAGE_SECRET }}
     - name: Copy storage
+      if: env.REPO_EXISTED
       run: cp -r ${{ env.REPO }}/.contextbuddy ~/.
     - name: Checkout repository
       uses: actions/checkout@v2
