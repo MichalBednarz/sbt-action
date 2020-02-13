@@ -18,7 +18,7 @@ jobs:
       id: create-storage
       uses: MichalBednarz/storage-action@master
       with:
-       user-key: ${{ secrets.STORAGE_SECRET }} 
+       user-key: ${{ secrets.GITHUB_TOKEN }} 
     - name: Checkout storage repository
       uses: actions/checkout@v2
       with: 
