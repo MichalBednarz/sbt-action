@@ -23,7 +23,7 @@ jobs:
       uses: actions/checkout@v2
       with: 
        repository: ${{ env.OWNER }}/contextbuddy-storage
-       token: ${{ secrets.GITHUB_TOKEN }}
+       token: ${{ secrets.STORAGE_SECRET }}
     - name: Copy storage
       if: steps.create-storage.outputs.repo-existed == 'true'
       run: mkdir -p ~/.contextbuddy/${{ env.REPO }} && cp -r ${{ env.REPO }} ~/.contextbuddy/${{ env.REPO }}
