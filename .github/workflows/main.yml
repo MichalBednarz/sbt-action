@@ -32,7 +32,7 @@ jobs:
     - name: test
       run: echo ${{ steps.create-storage.outputs.repo-existed}}
     - name: Copy storage
-      if: steps.create-storage.outputs.repo-existed
+      if: steps.create-storage.outputs.repo-existed == 'true'
       run: cp -r ${{ env.REPO }}/.contextbuddy ~/.
     - name: Checkout repository
       uses: actions/checkout@v2
