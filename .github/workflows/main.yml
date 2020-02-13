@@ -12,18 +12,19 @@ jobs:
     steps:
     - name: Set env
       run: | 
+       echo ::set-env name=USER_SECRET::$STORAGE_SECRET
        echo ::set-env name=OWNER::$(echo "${GITHUB_REPOSITORY/\/*/}")
        echo ::set-env name=REPO::$(echo "${GITHUB_REPOSITORY/*\//}")
     - name: Create storage if not present # if storage existed before then repo-existed output will be set to 'true'
       id: create-storage
       uses: MichalBednarz/storage-action@master
       with:
-       user-key: ${{ secrets.STORAGE_SECRET }} 
+       user-key: ${{ env.USER_SECRET }} 
     - name: Checkout storage repository
       uses: actions/checkout@v2
       with: 
        repository: ${{ env.OWNER }}/contextbuddy-storage
-       token: ${{ secrets.STORAGE_SECRET }}
+       token: ${{ env.USER_SECRET }}
     - name: Copy storage
       if: steps.create-storage.outputs.repo-existed == 'true'
       run: mkdir -p ~/.contextbuddy/${{ env.REPO }} && cp -r ${{ env.REPO }} ~/.contextbuddy/${{ env.REPO }}
@@ -53,7 +54,7 @@ jobs:
       uses: actions/checkout@v2
       with: 
        repository: ${{ env.OWNER }}/contextbuddy-storage
-       token: ${{ secrets.STORAGE_SECRET }}
+       token: ${{ env.USER_SECRET }}
     - name: Save snapshot to storage
       run: | 
        cp -rf ~/.contextbuddy/$REPO ./
