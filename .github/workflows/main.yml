@@ -4,10 +4,7 @@ on:
  push:
   branches: 
    - master
-#  pull_request:
-#   types: [closed]
-#  issue_comment:
-#   types: [created]
+
 jobs:
   generate_snapshot_job:
     runs-on: ubuntu-latest
@@ -17,7 +14,7 @@ jobs:
       run: | 
        echo ::set-env name=OWNER::$(echo "${GITHUB_REPOSITORY/\/*/}")
        echo ::set-env name=REPO::$(echo "${GITHUB_REPOSITORY/*\//}") # can env be accessed within js action?
-    - name: Create storage if not present # if present REPO_EXISTED env variable will be set to true
+    - name: Create storage if not present # if storage existed before then repo-existed output will be set to 'true'
       id: create-storage
       uses: MichalBednarz/storage-action@master
       with:
@@ -32,8 +29,6 @@ jobs:
     - name: Copy storage
       if: steps.create-storage.outputs.repo-existed == 'true'
       run: mkdir -p ~/.contextbuddy/${{ env.REPO }} && cp -r ${{ env.REPO }} ~/.contextbuddy/${{ env.REPO }}
-    - name: test
-      run: ls ~/.contextbuddy/
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Cache SBT
