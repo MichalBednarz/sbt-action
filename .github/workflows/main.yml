@@ -61,6 +61,5 @@ jobs:
        git add .
        git commit -m 'Update snapshot'
        git push -ff
-    - name: test
-      run: |
-       ls ~/work/sbt-action/sbt-action/
+    - name: Checkout repository # checkout repository again so that cache action could hash *.sbt files
+      uses: actions/checkout@v2
