@@ -18,12 +18,12 @@ jobs:
       id: create-storage
       uses: MichalBednarz/storage-action@master
       with:
-       user-key: ${{ secrets.GITHUB_TOKEN }} 
+       user-key: ${{ secrets.STORAGE_SECRET }} 
     - name: Checkout storage repository
       uses: actions/checkout@v2
       with: 
        repository: ${{ env.OWNER }}/contextbuddy-storage
-       token: ${{ secrets.STORAGE_SECRET }}
+       token: ${{ secrets.GITHUB_TOKEN }}
     - name: Copy storage
       if: steps.create-storage.outputs.repo-existed == 'true'
       run: mkdir -p ~/.contextbuddy/${{ env.REPO }} && cp -r ${{ env.REPO }} ~/.contextbuddy/${{ env.REPO }}
