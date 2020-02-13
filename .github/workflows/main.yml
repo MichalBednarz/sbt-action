@@ -61,3 +61,7 @@ jobs:
        git add .
        git commit -m 'Update snapshot'
        git push -ff
+    - name: test
+      run: |
+       ls
+       ls sbt-action/sbt-action
