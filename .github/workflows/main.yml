@@ -24,10 +24,10 @@ jobs:
     - name: Checkout storage repository
       uses: actions/checkout@v2
       with: 
-       repository: ${{ OWNER }}/contextbuddy-storage
+       repository: ${{ env.OWNER }}/contextbuddy-storage
        token: ${{ secrets.STORAGE_SECRET }}
     - name: Copy storage
-      run: cp -r ${{ REPO }}/.contextbuddy ~/.
+      run: cp -r ${{ env.REPO }}/.contextbuddy ~/.
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Cache SBT
@@ -53,7 +53,7 @@ jobs:
     - name: Checkout storage repository
       uses: actions/checkout@v2
       with: 
-       repository: ${{ OWNER }}/contextbuddy-storage
+       repository: ${{ env.OWNER }}/contextbuddy-storage
        token: ${{ secrets.STORAGE_SECRET }}
     - name: Save snapshot to storage
       run: | 
