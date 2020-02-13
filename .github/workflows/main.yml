@@ -1,22 +1,22 @@
 name: ContextBuddy CI
 
 on:
-#  push:
-#   branches: 
-#    - master
+ push:
+  branches: 
+   - master
 #  pull_request:
 #   types: [closed]
- issue_comment:
-  types: [created]
+#  issue_comment:
+#   types: [created]
 jobs:
   generate_snapshot_job:
     runs-on: ubuntu-latest
     name: Generate and save snapshot
     steps:
     - name: Set env
-      run: echo ::set-env name=OWNER::$(echo "${GITHUB_REPOSITORY/\/*/}")
-    - name: Test
-      run: echo $OWNER
+      run: | 
+       echo ::set-env name=OWNER::$(echo "${GITHUB_REPOSITORY/\/*/}")
+       echo ::set-env name=REPO::$(echo "${GITHUB_REPOSITORY/*\//}") # can env be accessed within js action?
     - name: Create storage if not present
       uses: MichalBednarz/storage-action@master
       with:
@@ -24,40 +24,40 @@ jobs:
     - name: Checkout storage repository
       uses: actions/checkout@v2
       with: 
-       repository: ${{ env.OWNER }}/contextbuddy-storage
+       repository: ${{ OWNER }}/contextbuddy-storage
        token: ${{ secrets.STORAGE_SECRET }}
-#     - name: Copy storage
-#       run: cp -r sbt-action/.contextbuddy ~/.
-#     - name: Checkout repository
-#       uses: actions/checkout@v2
-#     - name: Cache SBT
-#       uses: actions/cache@v1.1.2
-#       with:
-#         path: ~/.sbt
-#         key: sbt-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
-#     - name: Cache SBT ivy cache
-#       uses: actions/cache@v1.1.2
-#       with:
-#         path: ~/.ivy2/cache
-#         key: sbt-ivy-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
-#     - name: Create temporary file with review comments
-#       uses: MichalBednarz/contextbuddy@gh-actions
-#       with:
-#         repo-token: ${{ secrets.GITHUB_TOKEN }}
-#     - name: Git config # required by sbt generateSnapshot
-#       run: |
-#         git config --global user.email "context@buddy.com"
-#         git config --global user.name "ContextBuddy"
-#     - name: Generate snapshot
-#       run: sbt generateSnapshot
-#     - name: Checkout storage repository
-#       uses: actions/checkout@v2
-#       with: 
-#        repository: MichalBednarz/contextbuddy-storage
-#        token: ${{ secrets.STORAGE_SECRET }}
-#     - name: Save snapshot to storage
-#       run: | 
-#        cp -rf ~/.contextbuddy/sbt-action ./
-#        git add .
-#        git commit -m 'Update snapshot'
-#        git push -ff
+    - name: Copy storage
+      run: cp -r ${{ REPO }}/.contextbuddy ~/.
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Cache SBT
+      uses: actions/cache@v1.1.2
+      with:
+        path: ~/.sbt
+        key: sbt-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
+    - name: Cache SBT ivy cache
+      uses: actions/cache@v1.1.2
+      with:
+        path: ~/.ivy2/cache
+        key: sbt-ivy-${{ runner.os }}-${{ hashFiles('**/*.sbt') }}
+    - name: Create temporary file with review comments
+      uses: MichalBednarz/contextbuddy@gh-actions
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Git config # required by sbt generateSnapshot
+      run: |
+        git config --global user.email "context@buddy.com"
+        git config --global user.name "ContextBuddy"
+    - name: Generate snapshot
+      run: sbt generateSnapshot
+    - name: Checkout storage repository
+      uses: actions/checkout@v2
+      with: 
+       repository: ${{ OWNER }}/contextbuddy-storage
+       token: ${{ secrets.STORAGE_SECRET }}
+    - name: Save snapshot to storage
+      run: | 
+       cp -rf ~/.contextbuddy/$REPO ./
+       git add .
+       git commit -m 'Update snapshot'
+       git push -ff
