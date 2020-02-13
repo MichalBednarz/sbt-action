@@ -20,7 +20,7 @@ jobs:
     - name: Checkout storage repository
       uses: actions/checkout@v2
       with: 
-       repository: ${{ "${github.repository/\/*/}" }}/contextbuddy-storage
+       repository: ${{ $(echo "{github.repository/\/*/}") }}/contextbuddy-storage
        token: ${{ secrets.STORAGE_SECRET }}
 #     - name: Copy storage
 #       run: cp -r sbt-action/.contextbuddy ~/.
