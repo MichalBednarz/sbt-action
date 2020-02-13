@@ -54,7 +54,7 @@ jobs:
       uses: actions/checkout@v2
       with: 
        repository: ${{ env.OWNER }}/contextbuddy-storage
-       token: ${{ env.USER_SECRET }}
+       token: $USER_SECRET
     - name: Save snapshot to storage
       run: | 
        cp -rf ~/.contextbuddy/$REPO ./
