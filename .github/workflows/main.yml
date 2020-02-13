@@ -27,7 +27,7 @@ jobs:
        token: ${{ env.USER_SECRET }}
     - name: Copy storage
       if: steps.create-storage.outputs.repo-existed == 'true'
-      run: mkdir -p ~/.contextbuddy/${{ env.REPO }} && cp -r ${{ env.REPO }} ~/.contextbuddy/${{ env.REPO }}
+      run: mkdir -p ~/.contextbuddy/ && cp -r ${{ env.REPO }} ~/.contextbuddy/
     - name: test
       run: ls ~/.contextbuddy/sbt-action/
     - name: Checkout repository
