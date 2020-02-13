@@ -29,11 +29,9 @@ jobs:
       with: 
        repository: ${{ env.OWNER }}/contextbuddy-storage
        token: ${{ secrets.STORAGE_SECRET }}
-    - name: test
-      run: echo ${{ steps.create-storage.outputs.repo-existed}}
     - name: Copy storage
       if: steps.create-storage.outputs.repo-existed == 'true'
-      run: cp -r ${{ env.REPO }}/.contextbuddy ~/.
+      run: cp -r ${{ env.REPO }}/ ~/.contextbuddy/
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Cache SBT
