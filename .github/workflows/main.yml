@@ -14,7 +14,7 @@ jobs:
     name: Generate and save snapshot
     steps:
     - name: Set env
-      run: echo ::set-env name=OWNER::$(echo "{github.repository/\/*/}")
+      run: echo ::set-env name=OWNER::$(echo "${github.repository/\/*/}")
     - name: Test
       run: echo $OWNER
     - name: Create storage if not present
