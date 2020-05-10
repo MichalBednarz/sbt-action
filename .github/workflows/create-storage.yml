@@ -1,8 +1,8 @@
 name: Create Storage
 
-on:
-  issue_comment:
-    types: [created, deleted]
+# on:
+#   issue_comment:
+#     types: [created, deleted]
 
 
 jobs:
