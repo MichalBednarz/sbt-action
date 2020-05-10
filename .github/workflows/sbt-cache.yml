@@ -1,9 +1,9 @@
 name: SBT Cache
 
-on:
- push:
-  branches: 
-   - master
+# on:
+#  push:
+#   branches: 
+#    - master
 
 jobs:
   sbt_cache:
